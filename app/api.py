@@ -61,3 +61,14 @@ def login():
     session['email'] = email
     return jsonify({"message": "Login successful"}), 200
 
+@app.route('/api/v1/auth/logout', methods=['POST'])
+def logout():
+    """
+    This method checks if a session exists
+    then logs user out by clearing the session
+    """
+    user_session = session.get('email')
+    if not user_session:
+        return jsonify({"message": "You are not logged in"}), 400
+    session.pop('email')
+    return jsonify({"message": "Log out success"}), 200
