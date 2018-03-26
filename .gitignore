@@ -1,2 +1,9 @@
-.vscode
+# ignore folder 'hello': this is the virtual environment
+hello/
+
+# ignore .idea file
+.idea
+
+# ignore all '~' files
+* ~
 
