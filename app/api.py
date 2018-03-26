@@ -41,3 +41,23 @@ def register():
     user.register_user(username, email, password, password_confirmation)
     return jsonify({"message": "Registration successful"}), 201
 
+
+@app.route('/api/v1/auth/login', methods=['POST'])
+def login():
+    """
+    Checks if user exits in users
+    then checks for matching password and username
+    from the dict users
+    hence logs in a user and creates a session
+    """
+    user_obj = User()
+    email = request.json['email']
+    password = request.json['password']
+    user = [i for i in user_obj.users if email == i['email'] and password == i['password']]
+    if not user:
+        return jsonify({"message": "Invalid email/password combination"}), 401
+
+    user_obj.login_user(email, password)
+    session['email'] = email
+    return jsonify({"message": "Login successful"}), 200
+
