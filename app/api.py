@@ -3,16 +3,16 @@ import re
 from app.user_model import User
 
 
-app = Flask(__name__)
-
-
 @app.route('/api/home/', methods=['GET'])
 def home():
     return jsonify({'message': 'Welcome to Hello-Books'})
 
 
+app = Flask(__name__)
+
+
 @app.route('/api/auth/register/', methods=['POST'])
-def register():
+def register_user():
     """
     Gets data from user in JSON Format
     and uses them to register user with the register_user method
@@ -33,7 +33,7 @@ def register():
         return jsonify({"message": "Password does not match"}), 401
     elif not re.match(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]+$)", email):
         return jsonify({"message": "Input a valid email address"}), 401
-    elif len(password) < 5:
+    elif len(password) < 8:
         return jsonify({"message": "Password too short, please keep a strong password"}), 401
     elif [i for i in user.users if i['email'] == email]:
         return jsonify({"message": "User already exists"}), 401
@@ -42,7 +42,7 @@ def register():
     return jsonify({"message": "Registration successful"}), 201
 
 
-@app.route('/api/v1/auth/login', methods=['POST'])
+@app.route('/api/auth/login', methods=['POST'])
 def login():
     """
     Checks if user exits in users
@@ -61,7 +61,8 @@ def login():
     session['email'] = email
     return jsonify({"message": "Login successful"}), 200
 
-@app.route('/api/v1/auth/logout', methods=['POST'])
+
+@app.route('/api/auth/logout', methods=['POST'])
 def logout():
     """
     This method checks if a session exists
@@ -72,3 +73,10 @@ def logout():
         return jsonify({"message": "You are not logged in"}), 400
     session.pop('email')
     return jsonify({"message": "Log out success"}), 200
+
+
+
+@app.route('/api/home/', methods=['GET'])
+def home():
+    return jsonify({'message': 'Welcome to Hello-Books'})
+

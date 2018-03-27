@@ -16,8 +16,8 @@ class BookMethodsTest(unittest.TestCase):
         self.assertEqual(self.book_test2.author, 'Krafty', msg="Error on author book name")
 
     def test_correct_book_number(self):
-        self.assertEqual(self.book_test.book_number, 676, msg="Error on book number")
-        self.assertEqual(self.book_test2.book_number, 315, msg="Error on book number")
+        self.assertEqual(self.book_test.number_of_books, 676, msg="Error on book number")
+        self.assertEqual(self.book_test2.number_of_books, 315, msg="Error on book number")
 
     def test_correct_publisher_name(self):
         self.assertEqual(self.book_test.publisher, 'Longhorn', msg="Error on publisher name")
