@@ -73,10 +73,3 @@ def logout():
         return jsonify({"message": "You are not logged in"}), 400
     session.pop('email')
     return jsonify({"message": "Log out success"}), 200
-
-
-
-@app.route('/api/home/', methods=['GET'])
-def home():
-    return jsonify({'message': 'Welcome to Hello-Books'})
-
