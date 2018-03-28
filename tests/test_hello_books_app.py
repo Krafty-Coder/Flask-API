@@ -24,3 +24,5 @@ class BookMethodsTest(unittest.TestCase):
         self.assertEqual(self.book_test2.publisher, 'Oxford', msg="Error on publisher name")
 
 
+if __name__ == "__main__":
+    unittest.main()

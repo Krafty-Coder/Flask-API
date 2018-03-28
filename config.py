@@ -1,9 +1,6 @@
 import os
 
 
-DEBUG = True
-
-
 class Config(object):
     """Parent configuration class"""
     DEBUG = False

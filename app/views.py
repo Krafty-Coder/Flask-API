@@ -1,5 +1,6 @@
-from flask import Flask, jsonify, request, session
+from flask import jsonify, request, session
 import re
+from app import app
 from app.user_model import User
 from app.book_model import Book
 
@@ -7,9 +8,6 @@ from app.book_model import Book
 @app.route('/api/home/', methods=['GET'])
 def home():
     return jsonify({'message': 'Welcome to Hello-Books'})
-
-
-app = Flask(__name__)
 
 
 @app.route('/api/auth/register/', methods=['POST'])
