@@ -1,9 +1,9 @@
-# ignore folder 'hello': this is the virtual environment
-hello/
+# ignore folder 'hello ': this is the virtual environment
+hello-env/
 
 # ignore .idea file
 .idea
 
 # ignore all '~' files
-* ~
+
 

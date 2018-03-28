@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, session
 import re
 from app.user_model import User
+from app.book_model import Book
 
 
 @app.route('/api/home/', methods=['GET'])
@@ -24,9 +25,9 @@ def register_user():
     password_confirmation = request.json['password_confirmation']
 
     if not username or len(username.strip()) == 0:
-        return jsonify({"message": "Username can't be blank"}),401
+        return jsonify({"message": "Username can't be blank"}), 401
     elif not email:
-        return jsonify({"message": "Email can't be blank"}),401
+        return jsonify({"message": "Email can't be blank"}), 401
     elif not password:
         return jsonify({"message": "Password can't be blank"}), 401
     elif password != password_confirmation:
@@ -35,7 +36,7 @@ def register_user():
         return jsonify({"message": "Input a valid email address"}), 401
     elif len(password) < 8:
         return jsonify({"message": "Password too short, please keep a strong password"}), 401
-    elif [i for i in user.users if i['email'] == email]:
+    elif [user for user in user.users if user['email'] == email]:
         return jsonify({"message": "User already exists"}), 401
 
     user.register_user(username, email, password, password_confirmation)
@@ -46,8 +47,7 @@ def register_user():
 def login():
     """
     Checks if user exits in users
-    then checks for matching password and username
-    from the dict users
+    then checks for matching password and username from users list
     hence logs in a user and creates a session
     """
     user_obj = User()
@@ -74,9 +74,29 @@ def logout():
     session.pop('email')
     return jsonify({"message": "Log out success"}), 200
 
+@app.route('/api/books')
+def add_book():
+    """
+    Checks for the required fields then gets to input them
+    :return: "book added successfully" || "Add book Failed"
+    """
+    book = Book()
+    title = request.json['Title']
+    author = request.json['Author']
+    id = request.json['ID']
+    publisher = request.json['Publisher']
+    number_of_books = request.json['number_of_books']
 
+    if not title:
+        return jsonify({"message": "Title can't be blank, please fix"}),
+    elif not author:
+        return jsonify({"message": "Author can't be blank, People with names write books"}),
+    elif not publisher:
+        return jsonify({"message": "Publisher can't be blank"}),
+    elif not number_of_books and number_of_books < 5:
+        return jsonify({"message": "Number of books must be more than five in the library"}),
+    elif [book for book in book.library if book['ID'] == id]:
+        return jsonify({"message": "Book already exists"}),
 
-@app.route('/api/home/', methods=['GET'])
-def home():
-    return jsonify({'message': 'Welcome to Hello-Books'})
-
+    book.add_book(title, author, id, publisher, number_of_books)
+    return jsonify({"message": "Add book successful"}), 201
