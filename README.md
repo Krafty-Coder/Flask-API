@@ -1,5 +1,5 @@
 
-# Hello-(Flask API)
+# Hello-(Flask API) [![Build Status](https://travis-ci.org/Krafty-Coder/web.svg?branch=master)](https://travis-ci.org/Krafty-Coder/web)
 
 A simple application that helps manage a library and its processes like stocking, tracking and renting books.
 
